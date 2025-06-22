@@ -190,7 +190,6 @@
 
 ### Authentication & Authorization
 
-- **Solution Reference:**[Log file](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/log/pipeline_log.txt)
 - **Security App Config:**
 
 ![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/4.0-security-config.png)
