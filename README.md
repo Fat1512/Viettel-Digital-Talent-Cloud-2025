@@ -34,11 +34,9 @@ DevOps tools such as K8s, Jenkins, ArgoCD, Prometheus, ...
 
 ## 2. ArgoCD & Jenkins Setup
 
-### Setup
-
-- **ArgoCD:** 
-  - Manifest: [ArgoCD Helm Chart](charts/web)
-  - Installing Manifest
+### ArgoCD
+  * Manifest: [ArgoCD Helm Chart](charts/web)
+  * Installing Manifest
   ````shell
   kubectl create namespace argocd
   kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
@@ -49,10 +47,10 @@ DevOps tools such as K8s, Jenkins, ArgoCD, Prometheus, ...
   ````
   ![alt text](image_argo_ns.png)
   ![ArgoCD UI](asset/1.2.argo-startup.png)
-- **Jenkins:**
-  - Manifest: [Jenkins Helm Chart](charts/api)
+### Jenkin
+  * Manifest: [Jenkins Helm Chart](charts/api)
 
-  - Installing Manifest
+  * Installing Manifest
   ````shell
   cd jenkins
   kubectl apply -f jenkins-ns.yaml
@@ -69,79 +67,82 @@ DevOps tools such as K8s, Jenkins, ArgoCD, Prometheus, ...
   ![alt text](image_jenkins_ns.png)
   ![ArgoCD UI](asset/1.3.jenkins-startup.png)
 
-### Application Deployment using Helm Chart
+## Application on ArgoCD
+### Description
+
+  * Backend Helm Chart and values file: [click](https://github.com/Fat1512/VDT-Backend-Config)
+
+  * Frontend Helm Chart and values file: [click](https://github.com/Fat1512/VDT-Frontend-Config)
+
+  * I have 1 frontend and 2 service for backend as below
+
   ![alt text](asset/1.4.argo-startup-overview.png)
   ![alt text](asset/1.5.argo-startup-auth.png)
   ![alt text](asset/1.6.argo-startup-crud.png)
   ![alt text](asset/1.7.argo-startup-frontend.png)
+### App Demo
+  ![alt text](asset/1.9.frontend-demo.png)
+  ![alt text](asset/1.8.backend-demo.png)
 
 
-## 3. Containerization
 
-- **Optimized Dockerfiles (multi-stage) for web and api.**
-- **docker-compose:**  
-    ```sh
-    docker compose up -d
-    ```
-- **Build logs:**  
-    - [web build log](app/web/web_build.log)
-    - [api build log](app/api/api_build.log)
-- **Running containers:**  
-    ![Docker Containers](images/docker_containers.png)
+## 3. CI/CD
+### Jenkinsfile
+* Backend Jenkinsfile: [click](https://github.com/Fat1512/VDT-Backend-Config)
 
----
+* Frontend Jenkinsfile: [click](https://github.com/Fat1512/VDT-Frontend-Config)
+### Build log
 
-## 4. Continuous Integration & Delivery
+* Make changes to title on frontend
 
-- **CI:** GitHub Actions/Jenkins for build & test ([ci.yaml](.github/workflows/ci.yaml))
-- **CD:** Jenkins + ArgoCD auto-deploy on tag/new image
-    - Pipeline config: [Jenkinsfile](Jenkinsfile)
-    - ![Jenkins Pipeline](images/jenkins_pipeline.png)
-    - ![ArgoCD Diff](images/argocd_diff.png)
-- **Logs:**
-    - [CI log](ci.log)
-    - [CD log](cd.log)
+![web build log](asset/2.0.source-code-change.png)
 
----
+* Pipeline triggered on commit changes
 
-## 5. Automation
+![api build log](asset/2.2.pipeline-output-1.png)
+![api build log](asset/2.3.pipeline-output-2.png)
+![api build log](asset/2.4.pipeline-output-3.png)
 
-- **Ansible playbooks:**
-    - [Inventory](ansible/inventory.yml)
-    - [Playbook](ansible/playbook.yml)
-    - [Roles](ansible/roles/)
-- **Usage:**
-    ```sh
-    ansible-playbook -i inventory.yml playbook.yml
-    ```
-- **Sample Output:**  
-    ![Ansible Output](images/ansible_output.png)
+* Pipeline triggered on commit changes
+### Stage view
 
----
+![stage](asset/2.5.jenkins-frontend.png)
 
-## 6. Monitoring
 
-- **Prometheus:**  
-    - [prometheus setup](prometheus/)
-    - [prometheus-operator setup](prometheus-operator/)
+![stage](asset/2.6.jenkins-backend.png)
+
+### Changes in CD
+* CD repo and Dockerhub get updated
+
+![change](asset/2.7.updated-cd.png)
+![change](asset/2.8.updated-dockerhub.png)
+
+* ArgoCD noticed the change
+
+![change](asset/2.9.updated-argo.png)
+
+### Before and After
+![change](asset/2.10.updated-before.png)
+![change](asset/2.11.updated-after.png)
+
+
+
+## 4. Monitoring
+### Prometheus:  
+
+  ````shell
+    ansible-playbook -i inventory.ini deploy-prometheus.yml
+  ````
+![Prometheus UI](asset/3.1.setup.png)  
+- [prometheus setup](prometheus)
 - **UI & Target list:**  
-    ![Prometheus UI](images/prometheus_ui.png)  
     ![Prometheus Targets](images/prometheus_targets.png)
 
 ---
 
-## 7. Logging
+## 5. Security
 
-- **EFK stack (Elasticsearch, Fluentd, Kibana):**  
-    - [Fluentd config](fluentd/)
-- **Kibana search example:**  
-    ![Kibana Log](images/kibana_log.png)
-
----
-
-## 8. Security
-
-### HAProxy Load Balancer & Ingress
+<!-- ### HAProxy Load Balancer & Ingress
 
 - **HAProxy config:** [haproxy.cfg](haproxy/haproxy.cfg)
 - **Ingress config:** [ingress.yaml](k8s/ingress.yaml)
@@ -149,14 +150,7 @@ DevOps tools such as K8s, Jenkins, ArgoCD, Prometheus, ...
     - Web: `https://<LB-IP>:3001/`
     - API: `https://<LB-IP>:8081/`
     - ![HAProxy Web](images/haproxy_web.png)
-    - ![HAProxy API](images/haproxy_api.png)
-
-### Authentication & Authorization
-
-- **API protected endpoints:** See [api repo](https://github.com/[your_api_repo])
-- **Role-based access screenshots:**  
-    ![Admin Access](images/admin_access.png)
-    ![User Access](images/user_access.png)
+    - ![HAProxy API](images/haproxy_api.png) -->
 
 ### Rate Limiting
 
@@ -164,13 +158,10 @@ DevOps tools such as K8s, Jenkins, ArgoCD, Prometheus, ...
 - **Test result:**  
     ![Rate Limit](images/rate_limit.png)
 
----
 
-## 9. Research/Analysis Report
+### Authentication & Authorization
 
-- [Analysis/Research PDF](docs/research.pdf)
-
----
-
-> **Note:** No web application source code is included.  
-> All documentation, manifests, configs, logs, and screenshots are provided as required by the assignment.
+- **API protected endpoints:** See [api repo](https://github.com/[your_api_repo])
+- **Role-based access screenshots:**  
+    ![Admin Access](images/admin_access.png)
+    ![User Access](images/user_access.png)
