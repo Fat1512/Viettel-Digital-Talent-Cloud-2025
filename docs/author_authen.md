@@ -20,3 +20,45 @@ Spring Security handles access control after JWT authentication succeeds. It use
 2. Spring Security evaluates user permissions against requested resource
 3. Access granted or denied based on role and HTTP method in Security config
 4. Appropriate HTTP response code returned
+
+**Filter**
+```java
+
+@Component
+@RequiredArgsConstructor
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    private final JwtService jwtService;
+    private final UserService userService;
+    private final HandlerExceptionResolver handlerExceptionResolver;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        String token = request.getHeader("Authorization");
+        if(token == null || !token.startsWith("Bearer")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        try {
+            token = jwtService.extractToken(token);
+            if(jwtService.validateToken(token)) {
+                String username = jwtService.extractUsername(token);
+
+                UserDetails userDetails = userService.loadUserByUsername(username);
+                if (userDetails != null) {
+                    UsernamePasswordAuthenticationToken authToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
+                filterChain.doFilter(request, response);
+            } else
+                throw new AccessDeniedException("Expired token");
+        } catch (AccessDeniedException runtimeException) {
+            handlerExceptionResolver.resolveException(request, response, null, runtimeException);
+        }
+    }
+}
+```
+![alt text](image.png)
