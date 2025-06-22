@@ -41,7 +41,7 @@
 ## 2. ArgoCD & Jenkins Setup
 
 ### ArgoCD
-  * **Manifest:** [ArgoCD Helm Chart](https://github.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/tree/main/argocd)
+  * **Manifest:** [ArgoCD Manifest](https://github.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/tree/main/argocd)
   * **ArgoCD Service Address:**   192.168.113.111:32489
   * **Install ArgoCD:**
   ```shell
@@ -62,7 +62,7 @@
   ![ArgoCD UI](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.2.argo-startup.png)
 
 ### Jenkins
-  * **Manifest:** [Jenkins Helm Chart](https://github.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/tree/main/jenkins)
+  * **Manifest:** [Jenkins Manifest](https://github.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/tree/main/jenkins)
   * **Jenkins Service Address:**  __192.168.113.111:32474__
   * **Install Jenkins:**
   ```shell
