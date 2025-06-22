@@ -41,7 +41,7 @@
 ## 2. ArgoCD & Jenkins Setup
 
 ### ArgoCD
-  * **Manifest:** [ArgoCD Helm Chart](argocd/install.yaml)
+  * **Manifest:** [ArgoCD Helm Chart](https://github.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/tree/main/argocd)
   * **ArgoCD Service Address:**   192.168.113.111:32489
   * **Install ArgoCD:**
   ```shell
@@ -62,7 +62,7 @@
   ![ArgoCD UI](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.2.argo-startup.png)
 
 ### Jenkins
-  * **Manifest:** [Jenkins Helm Chart](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/jenkins/)
+  * **Manifest:** [Jenkins Helm Chart](https://github.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/tree/main/jenkins)
   * **Jenkins Service Address:**  __192.168.113.111:32474__
   * **Install Jenkins:**
   ```shell
@@ -122,7 +122,7 @@
 * Frontend Jenkinsfile: [Frontend Jenkinsfile](https://github.com/Fat1512/VDT-Frontend/blob/main/Jenkinsfile)
 
 ### Build Logs
-* Reference: [Log file](log/pipeline_log.txt)
+* Reference: [Log file](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/log/pipeline_log.txt)
 * Example: Update frontend title and observe pipeline triggers.
 
 ![Web Build Log](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.0.source-code-change.png)
@@ -190,7 +190,7 @@
 
 ### Authentication & Authorization
 
-- **Solution Reference:**[Log file](log/pipeline_log.txt)
+- **Solution Reference:**[Log file](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/log/pipeline_log.txt)
 - **Security App Config:**
 
 ![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/4.0-security-config.png)
