@@ -158,8 +158,9 @@
 ## 5. Monitoring
 
 ### Prometheus
-  
-  * Deploy Prometheus using Ansible:
+  * Ansible config: [playbook](https://github.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/tree/main/prometheus)
+
+  * Deploy Prometheus using Ansible
 
   ```shell
   ansible-playbook -i inventory.ini deploy-prometheus.yml
@@ -189,6 +190,7 @@
   - To be continued
 
 ### Authentication & Authorization
+- **Authentication / Authorization docs:** See [author_authen.md](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/docs/author_authen.md)
 
 - **Security App Config:**
 
@@ -222,7 +224,7 @@
 
 ### Rate Limiting
 
-- **Rate Limiting Configuration:** See [rate_limitation.md](docs/rate_limit.md)
+- **Rate limiting docs:** See [rate_limitation.md](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/docs/rate_limit.md)
 
 **Overview:**  
   The API endpoint /api/v1/students allows clients to retrieve student records. To prevent abuse and overuse, a token bucket algorithm is used to limit the number of requests.
