@@ -15,7 +15,7 @@
 **Tool:** kubeadm
 
 **Installation Steps & Configuration**  
-  Please refer to the detailed [kubeadm/README.md](kubeadm/README.md) for comprehensive setup instructions.
+- Please refer to the detailed [kubeadm/README.md](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/kubeadm/README.md) for comprehensive setup instructions.
 
 **Server Address:**
 - Master: __192.168.111.111__  
@@ -34,14 +34,14 @@
 
 - **Screenshots:**
 
-- ![Nodes list](asset/1.0.init.png)
-- ![Pods list](asset/1.1.init-2.png)
+- ![Nodes list](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.0.init.png)
+- ![Pods list](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.1.init-2.png)
 
 
 ## 2. ArgoCD & Jenkins Setup
 
 ### ArgoCD
-  * **Manifest:** [ArgoCD Helm Chart](charts/web)
+  * **Manifest:** [ArgoCD Helm Chart](argocd/install.yaml)
   * **ArgoCD Service Address:**   192.168.113.111:32489
   * **Install ArgoCD:**
   ```shell
@@ -58,12 +58,12 @@
   
   kubectl get all -n argocd
   ```
-  ![ArgoCD Namespace](asset/image_argo_ns.png)
-  ![ArgoCD UI](asset/1.2.argo-startup.png)
+  ![ArgoCD Namespace](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/image_argo_ns.png)
+  ![ArgoCD UI](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.2.argo-startup.png)
 
 ### Jenkins
-  * **Manifest:** [Jenkins Helm Chart](charts/api)
-  * **Jenkins Service Address:**  192.168.113.111:32474
+  * **Manifest:** [Jenkins Helm Chart](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/jenkins/)
+  * **Jenkins Service Address:**  __192.168.113.111:32474__
   * **Install Jenkins:**
   ```shell
   cd jenkins
@@ -77,8 +77,8 @@
   ```shell
   kubectl get all -n jenkins
   ```
-  ![Jenkins Namespace](asset/image_jenkins_ns.png)
-  ![Jenkins Startup](asset/1.3.jenkins-startup.png)
+  ![Jenkins Namespace](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/image_jenkins_ns.png)
+  ![Jenkins Startup](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.3.jenkins-startup.png)
 
 
 ## 3. Application Deployment via ArgoCD
@@ -96,63 +96,63 @@
     kubectl get svc -n vdt
   ```
 
-  ![ArgoCD Overview](asset/image_web_service.png)
+  ![ArgoCD Overview](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/image_web_service.png)
 
-  - Frontend Service: 192.168.113.111:32647
+  - Frontend Service: __192.168.113.111:32647__
    
-  - Auth Service: 192.168.113.111:30101
+  - Auth Service: __192.168.113.111:30101__
   
-  - Crud Service: 192.168.113.111:30102
+  - Crud Service: __192.168.113.111:30102__
 
-  ![ArgoCD Overview](asset/1.4.argo-startup-overview.png)
-  ![Auth Service](asset/1.5.argo-startup-auth.png)
-  ![CRUD Service](asset/1.6.argo-startup-crud.png)
-  ![Frontend Service](asset/1.7.argo-startup-frontend.png)
+  ![ArgoCD Overview](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.4.argo-startup-overview.png)
+  ![Auth Service](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.5.argo-startup-auth.png)
+  ![CRUD Service](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.6.argo-startup-crud.png)
+  ![Frontend Service](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.7.argo-startup-frontend.png)
 
 ### Demo
-  ![Frontend Demo](asset/1.9.frontend-demo.png)
-  ![Backend Demo](asset/1.8.backend-demo.png)
+  ![Frontend Demo](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.9.frontend-demo.png)
+  ![Backend Demo](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/1.8.backend-demo.png)
 
 ---
 
 ## 4. CI/CD
 
 ### Jenkinsfile
-* Backend Jenkinsfile: [Backend Jenkinsfile](https://github.com/Fat1512/VDT-Backend-Config)
-* Frontend Jenkinsfile: [Frontend Jenkinsfile](https://github.com/Fat1512/VDT-Frontend-Config)
+* Backend Jenkinsfile: [Backend Jenkinsfile](https://github.com/Fat1512/VDT-Backend/blob/main/Jenkinsfile)
+* Frontend Jenkinsfile: [Frontend Jenkinsfile](https://github.com/Fat1512/VDT-Frontend/blob/main/Jenkinsfile)
 
 ### Build Logs
 * Reference: [Log file](log/pipeline_log.txt)
 * Example: Update frontend title and observe pipeline triggers.
 
-![Web Build Log](asset/2.0.source-code-change.png)
+![Web Build Log](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.0.source-code-change.png)
 
 * Pipeline is automatically triggered on commit changes
 
-![Pipeline Output 1](asset/2.2.pipeline-output-1.png)
-![Pipeline Output 2](asset/2.3.pipeline-output-2.png)
-![Pipeline Output 3](asset/2.4.pipeline-output-3.png)
+![Pipeline Output 1](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.2.pipeline-output-1.png)
+![Pipeline Output 2](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.3.pipeline-output-2.png)
+![Pipeline Output 3](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.4.pipeline-output-3.png)
 
 ### Stage View
 
-![Frontend Stage](asset/2.5.jenkins-frontend.png)
-![Backend Stage](asset/2.6.jenkins-backend.png)
+![Frontend Stage](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.5.jenkins-frontend.png)
+![Backend Stage](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.6.jenkins-backend.png)
 
 ### Continuous Delivery Changes
 
 * CD repository and DockerHub images get updated automatically after successful builds.
 
-![CD Updated](asset/2.7.updated-cd.png)
-![DockerHub Updated](asset/2.8.updated-dockerhub.png)
+![CD Updated](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.7.updated-cd.png)
+![DockerHub Updated](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.8.updated-dockerhub.png)
 
 * ArgoCD automatically detects and synchronizes changes.
 
-![ArgoCD Updated](asset/2.9.updated-argo.png)
+![ArgoCD Updated](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.9.updated-argo.png)
 
 ### Before and After
 
-![Before Update](asset/2.10.updated-before.png)
-![After Update](asset/2.11.updated-after.png)
+![Before Update](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.10.updated-before.png)
+![After Update](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/2.11.updated-after.png)
 
 
 ## 5. Monitoring
@@ -165,20 +165,20 @@
   ansible-playbook -i inventory.ini deploy-prometheus.yml
   ```
 
-  ![Prometheus UI](asset/3.1.setup.png)
+  ![Prometheus UI](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/3.1.setup.png)
 
   * SSH into monitoring server and check status to ensure that container is up:
 
   ```shell
     docker ps
   ```
-  ![Prometheus UI](asset/prometheus_monitoring.png)
+  ![Prometheus UI](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/prometheus_monitoring.png)
 
   * API service monitoring:
 
-  ![Prometheus UI](asset/3.2.show-metrics.png)
-  ![Prometheus UI](asset/3.3.metric-1.png)
-  ![Prometheus UI](asset/3.4.metric-2.png)
+  ![Prometheus UI](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/3.2.show-metrics.png)
+  ![Prometheus UI](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/3.3.metric-1.png)
+  ![Prometheus UI](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/3.4.metric-2.png)
 
 ## 6. Logging 
   - To be continued
@@ -193,42 +193,42 @@
 - **Solution Reference:**[Log file](log/pipeline_log.txt)
 - **Security App Config:**
 
-![Admin Access](asset/4.0-security-config.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/4.0-security-config.png)
 
 - **User role is allowed to get**
 
-![Admin Access](asset/4.0-user-get.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/4.0-user-get.png)
 
 - **User role is forbidden to perform post**
 
-![Admin Access](asset/4.0-user-post.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/4.0-user-post.png)
 
 - **User role is forbidden to perform delete**
 
-![Admin Access](asset/4.0-user-delete.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/4.0-user-delete.png)
 
 
 - **Admin role is allowed to get**
 
-![Admin Access](asset/4.0-user-get.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/4.1-admin-get.png)
 
-- **User role is allowed to perform post**
+- **Admin role is allowed to perform post**
 
-![Admin Access](asset/4.0-user-post.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/4.1-admin-post.png)
 
-- **User role is allowed to perform post**
+- **Admin role is allowed to perform post**
 
-![Admin Access](asset/4.0-user-delete.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/4.1-admin-delete.png)
 
 
 ### Rate Limiting
 
-- **Rate Limiting Configuration:** See [rateLimitation.md](docs/rateLimitation.md)
+- **Rate Limiting Configuration:** See [rate_limitation.md](docs/rate_limit.md)
 
 **Overview:**  
   The API endpoint /api/v1/students allows clients to retrieve student records. To prevent abuse and overuse, a token bucket algorithm is used to limit the number of requests.
 
-![Admin Access](asset/7.0.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/7.0.png)
 
 - __Capacity__: 10 tokens
 
@@ -236,12 +236,13 @@
 
 - This means each client can send up to 10 requests per minute.
 
-![Admin Access](asset/7.1.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/7.1.png)
 
-![Admin Access](asset/7.2.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/7.2.png)
 
-![Admin Access](asset/7.3.png)
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/7.3.png)
+
+![Admin Access](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/7.4.png)
 
 - Once all tokens are used, further requests are blocked until the bucket refills after 1 minute.
 
-*Note*: There may be slight overlaps in token consumption due to concurrency (multiple threads accessing the bucket simultaneously), so the effective limit might occasionally exceed 10 requests per minute.
