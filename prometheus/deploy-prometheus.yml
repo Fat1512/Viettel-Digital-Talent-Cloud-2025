@@ -1,0 +1,50 @@
+- name: Deploy Prometheus container on VM
+  hosts: prometheus_server
+  become: true
+
+  tasks:
+    - name: Install Python3 and pip
+      apt:
+        name: 
+          - python3-pip
+          - python3-setuptools
+        state: present
+        update_cache: yes
+
+    - name: Create Prometheus config directory
+      file:
+        path: /opt/prometheus
+        state: directory
+        mode: '0755'
+
+    - name: Copy prometheus.yml to target VM
+      copy:
+        src: files/prometheus.yml
+        dest: /opt/prometheus/prometheus.yml
+        mode: '0644'
+
+    - name: Create Prometheus data directory
+      file:
+        path: /opt/prometheus/data
+        state: directory
+        owner: 65534
+        group: 65534
+        mode: '0755'
+
+    - name: Run Prometheus container
+      docker_container:
+        name: prometheus
+        image: prom/prometheus:latest
+        state: started
+        restart_policy: unless-stopped
+        ports:
+          - "9090:9090"
+        volumes:
+          - "/opt/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
+          - "/opt/prometheus/data:/prometheus"
+        command:
+          - '--config.file=/etc/prometheus/prometheus.yml'
+          - '--storage.tsdb.path=/prometheus'
+          - '--storage.tsdb.retention.time=200h'
+          - '--web.enable-lifecycle'
+        user: "65534:65534"

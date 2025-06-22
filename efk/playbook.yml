@@ -1,0 +1,13 @@
+- name: Deploy EFK stack
+  hosts: efk
+  become: true
+  roles:
+    - elasticsearch
+    - kibana
+    - fluentd
+
+- name: Deploy Web and API services with logging
+  hosts: services
+  become: true
+  roles:
+    - services
