@@ -1,0 +1,357 @@
+Started by an SCM change
+Obtained Jenkinsfile from git https://github.com/Fat1512/VDT-Frontend
+[Pipeline] Start of Pipeline
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Created Pod: k8s jenkins/dev-frontend-62-j050t-6lcnv-5sh9h
+[PodInfo] jenkins/dev-frontend-62-j050t-6lcnv-5sh9h
+	Container [jnlp] waiting [ContainerCreating] No message
+	Container [kaniko] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [jnlp kaniko]
+[PodInfo] jenkins/dev-frontend-62-j050t-6lcnv-5sh9h
+	Container [jnlp] waiting [ContainerCreating] No message
+	Container [kaniko] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [jnlp kaniko]
+Still waiting to schedule task
+‘dev-frontend-62-j050t-6lcnv-5sh9h’ is offline
+[PodInfo] jenkins/dev-frontend-62-j050t-6lcnv-5sh9h
+	Container [jnlp] waiting [ContainerCreating] No message
+	Container [kaniko] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [jnlp kaniko]
+Agent dev-frontend-62-j050t-6lcnv-5sh9h is provisioned from template DEV_FRONTEND_62-j050t-6lcnv
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  annotations:
+    kubernetes.jenkins.io/last-refresh: "1750576095365"
+    buildUrl: "http://jenkins-service.jenkins.svc.cluster.local:8080/job/DEV/job/FRONTEND/62/"
+    runUrl: "job/DEV/job/FRONTEND/62/"
+  labels:
+    jenkins: "slave"
+    jenkins/label-digest: "964934ab744c4cde1261575ef2380d9356645589"
+    jenkins/label: "DEV_FRONTEND_62-j050t"
+    kubernetes.jenkins.io/controller: "http___jenkins-service_jenkins_svc_cluster_local_8080x"
+  name: "dev-frontend-62-j050t-6lcnv-5sh9h"
+  namespace: "jenkins"
+spec:
+  containers:
+  - args:
+    - "$(JENKINS_SECRET)"
+    - "$(JENKINS_NAME)"
+    env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "JENKINS_AGENT_NAME"
+      value: "dev-frontend-62-j050t-6lcnv-5sh9h"
+    - name: "REMOTING_OPTS"
+      value: "-noReconnectAfter 1d"
+    - name: "JENKINS_NAME"
+      value: "dev-frontend-62-j050t-6lcnv-5sh9h"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins-service.jenkins.svc.cluster.local:8080/"
+    image: "jenkins/inbound-agent:jdk17"
+    name: "jnlp"
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+    workingDir: "/home/jenkins/agent"
+  - args:
+    - "9999999"
+    command:
+    - "sleep"
+    image: "gcr.io/kaniko-project/executor:debug"
+    imagePullPolicy: "Always"
+    name: "kaniko"
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+    - mountPath: "/kaniko/.docker/"
+      name: "docker-config"
+    workingDir: "/home/jenkins/agent"
+    requests:
+      ephemeral-storage: "2Gi"
+    limits:
+      ephemeral-storage: "3Gi"
+  nodeSelector:
+    kubernetes.io/os: "linux"
+  restartPolicy: "Never"
+  volumes:
+  - name: "docker-config"
+    secret:
+      items:
+      - key: ".dockerconfigjson"
+        path: "config.json"
+      secretName: "dockerhub-credentials"
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+
+Running on dev-frontend-62-j050t-6lcnv-5sh9h in /home/jenkins/agent/workspace/DEV/FRONTEND
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential repo-access-credentials
+Cloning the remote Git repository
+Cloning repository https://github.com/Fat1512/VDT-Frontend
+ > git init /home/jenkins/agent/workspace/DEV/FRONTEND # timeout=10
+Fetching upstream changes from https://github.com/Fat1512/VDT-Frontend
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+using GIT_SSH to set credentials repo-access-credentials
+Verifying host key using known hosts file
+You're using 'Known hosts file' strategy to verify ssh host keys, but your known_hosts file does not exist, please go to 'Manage Jenkins' -> 'Security' -> 'Git Host Key Verification Configuration' and configure host key verification.
+ > git fetch --tags --force --progress -- https://github.com/Fat1512/VDT-Frontend +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision c2c918281f96e953cdc9c5849d63d8727c9f1839 (refs/remotes/origin/main)
+Commit message: "update title"
+ > git config remote.origin.url https://github.com/Fat1512/VDT-Frontend # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c2c918281f96e953cdc9c5849d63d8727c9f1839 # timeout=10
+ > git rev-list --no-walk e0143fef3bcdcaee7c5c602e5cbc1acbdbe3ab0e # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Checking out...
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-cred
+Fetching changes from the remote Git repository
+Checking out Revision c2c918281f96e953cdc9c5849d63d8727c9f1839 (refs/remotes/origin/main)
+Commit message: "update title"
+[Pipeline] echo
+Checked out.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build & Push Docker Image (with Kaniko))
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
+ > git rev-parse --resolve-git-dir /home/jenkins/agent/workspace/DEV/FRONTEND/.git # timeout=10
+ > git config remote.origin.url https://github.com/Fat1512/VDT-Frontend # timeout=10
+Fetching upstream changes from https://github.com/Fat1512/VDT-Frontend
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+using GIT_SSH to set credentials github-cred
+Verifying host key using known hosts file
+You're using 'Known hosts file' strategy to verify ssh host keys, but your known_hosts file does not exist, please go to 'Manage Jenkins' -> 'Security' -> 'Git Host Key Verification Configuration' and configure host key verification.
+ > git fetch --tags --force --progress -- https://github.com/Fat1512/VDT-Frontend +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c2c918281f96e953cdc9c5849d63d8727c9f1839 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b main c2c918281f96e953cdc9c5849d63d8727c9f1839 # timeout=10
++ git rev-parse HEAD
+[Pipeline] container
+[Pipeline] {
+[Pipeline] echo
+Đang build và push image với Kaniko: fat1512/vdt-frontend:c2c91828
+[Pipeline] sh
++ pwd
++ pwd
++ /kaniko/executor --context /home/jenkins/agent/workspace/DEV/FRONTEND --dockerfile /home/jenkins/agent/workspace/DEV/FRONTEND/Dockerfile --destination fat1512/vdt-frontend:c2c91828
+[36mINFO[0m[0003] Resolved base name node:20-alpine to builder 
+[36mINFO[0m[0003] Using dockerignore file: /home/jenkins/agent/workspace/DEV/FRONTEND/.dockerignore 
+[36mINFO[0m[0003] Retrieving image manifest node:20-alpine     
+[36mINFO[0m[0003] Retrieving image node:20-alpine from registry index.docker.io 
+[36mINFO[0m[0007] Retrieving image manifest nginx:alpine       
+[36mINFO[0m[0007] Retrieving image nginx:alpine from registry index.docker.io 
+[36mINFO[0m[0011] Built cross stage deps: map[0:[/app/dist]]   
+[36mINFO[0m[0011] Retrieving image manifest node:20-alpine     
+[36mINFO[0m[0011] Returning cached image manifest              
+[36mINFO[0m[0011] Executing 0 build triggers                   
+[36mINFO[0m[0011] Building stage 'node:20-alpine' [idx: '0', base-idx: '-1'] 
+[36mINFO[0m[0011] Unpacking rootfs as cmd COPY package*.json ./ requires it. 
+[36mINFO[0m[0023] WORKDIR /app                                 
+[36mINFO[0m[0023] Cmd: workdir                                 
+[36mINFO[0m[0023] Changed working directory to /app            
+[36mINFO[0m[0023] Creating directory /app with uid -1 and gid -1 
+[36mINFO[0m[0023] Taking snapshot of files...                  
+[36mINFO[0m[0023] Resolving srcs [package*.json]...            
+[36mINFO[0m[0023] COPY package*.json ./                        
+[36mINFO[0m[0023] Resolving srcs [package*.json]...            
+[36mINFO[0m[0023] Taking snapshot of files...                  
+[36mINFO[0m[0023] RUN npm install                              
+[36mINFO[0m[0023] Initializing snapshotter ...                 
+[36mINFO[0m[0023] Taking snapshot of full filesystem...        
+[36mINFO[0m[0024] Cmd: /bin/sh                                 
+[36mINFO[0m[0024] Args: [-c npm install]                       
+[36mINFO[0m[0024] Running: [/bin/sh -c npm install]            
+
+added 279 packages, and audited 280 packages in 7s
+
+70 packages are looking for funding
+  run `npm fund` for details
+
+1 low severity vulnerability
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 11.4.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.2
+npm notice To update run: npm install -g npm@11.4.2
+npm notice
+[36mINFO[0m[0031] Taking snapshot of full filesystem...        
+[36mINFO[0m[0034] COPY . .                                     
+[36mINFO[0m[0034] Taking snapshot of files...                  
+[36mINFO[0m[0034] RUN npm run build                            
+[36mINFO[0m[0034] Cmd: /bin/sh                                 
+[36mINFO[0m[0034] Args: [-c npm run build]                     
+[36mINFO[0m[0034] Running: [/bin/sh -c npm run build]          
+
+> vdt@0.0.0 build
+> vite build
+
+vite v6.3.5 building for production...
+transforming...
+
+../public/Image/chat-bg.png referenced in ../public/Image/chat-bg.png didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 145 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:  0.27 kB
+dist/assets/index-BUYIXUWO.css   10.08 kB │ gzip:  2.75 kB
+dist/assets/index-CIk_OYUd.js   285.36 kB │ gzip: 92.36 kB
+✓ built in 3.71s
+[36mINFO[0m[0038] Taking snapshot of full filesystem...        
+[36mINFO[0m[0039] Saving file app/dist for later use           
+[36mINFO[0m[0039] Deleting filesystem...                       
+[36mINFO[0m[0039] Retrieving image manifest nginx:alpine       
+[36mINFO[0m[0039] Returning cached image manifest              
+[36mINFO[0m[0039] Executing 0 build triggers                   
+[36mINFO[0m[0039] Building stage 'nginx:alpine' [idx: '1', base-idx: '-1'] 
+[36mINFO[0m[0039] Unpacking rootfs as cmd RUN rm -rf /usr/share/nginx/html/* requires it. 
+[36mINFO[0m[0048] RUN rm -rf /usr/share/nginx/html/*           
+[36mINFO[0m[0048] Initializing snapshotter ...                 
+[36mINFO[0m[0048] Taking snapshot of full filesystem...        
+[36mINFO[0m[0049] Cmd: /bin/sh                                 
+[36mINFO[0m[0049] Args: [-c rm -rf /usr/share/nginx/html/*]    
+[36mINFO[0m[0049] Running: [/bin/sh -c rm -rf /usr/share/nginx/html/*] 
+[36mINFO[0m[0049] Taking snapshot of full filesystem...        
+[36mINFO[0m[0049] COPY nginx.conf /etc/nginx/conf.d/default.conf 
+[36mINFO[0m[0049] Taking snapshot of files...                  
+[36mINFO[0m[0049] COPY --from=builder /app/dist /usr/share/nginx/html 
+[36mINFO[0m[0049] Taking snapshot of files...                  
+[36mINFO[0m[0049] EXPOSE 80                                    
+[36mINFO[0m[0049] Cmd: EXPOSE                                  
+[36mINFO[0m[0049] Adding exposed port: 80/tcp                  
+[36mINFO[0m[0049] CMD ["nginx", "-g", "daemon off;"]           
+[36mINFO[0m[0049] Pushing image to fat1512/vdt-frontend:c2c91828 
+[36mINFO[0m[0059] Pushed index.docker.io/fat1512/vdt-frontend@sha256:4f30f85c41ec73e31d684084417fd7e38092785ddae69ba3512262edda7aae2f 
+[Pipeline] echo
+Build và push với Kaniko thành công.
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Update K8s Manifest Repo)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ git rev-parse HEAD
+[Pipeline] echo
+Update K8s Frontend Manifest...
+[Pipeline] sshagent
+[ssh-agent] Using credentials repo-access-credentials (repo-access-credentials)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-OZoVmx2GOIsi/agent.175
+SSH_AGENT_PID=177
+Running ssh-add (command line suppressed)
+Identity added: /home/jenkins/agent/workspace/DEV/FRONTEND@tmp/private_key_10096380695456751867.key (devops@k8s-master-1)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] sh
++ mkdir -p /home/jenkins/.ssh
++ ssh-keyscan github.com
+# github.com:22 SSH-2.0-2a0fca48
+# github.com:22 SSH-2.0-2a0fca48
+# github.com:22 SSH-2.0-2a0fca48
+# github.com:22 SSH-2.0-2a0fca48
+# github.com:22 SSH-2.0-2a0fca48
+[Pipeline] sh
++ git clone -b main git@github.com:Fat1512/VDT-Frontend-Config.git
+Cloning into 'VDT-Frontend-Config'...
+[Pipeline] dir
+Running in /home/jenkins/agent/workspace/DEV/FRONTEND/VDT-Frontend-Config
+[Pipeline] {
+[Pipeline] echo
+Updating image tag to c2c91828
+[Pipeline] sh
++ sed -i s|tag: .*|tag: c2c91828|g charts/values.yaml
+[Pipeline] sh
++ git config user.email letanphat15122004@gmail.com
+[Pipeline] sh
++ git config user.name Fat1512
+[Pipeline] sh
++ git add -A
+[Pipeline] sh
++ git commit -m ci: update c2c91828
+[main c3a3a0d] ci: update c2c91828
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[Pipeline] sh
++ git push origin main
+To github.com:Fat1512/VDT-Frontend-Config.git
+   164c175..c3a3a0d  main -> main
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 177 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] echo
+Cập nhật kho chứa cấu hình K8s thành công.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+Finished: SUCCESS
