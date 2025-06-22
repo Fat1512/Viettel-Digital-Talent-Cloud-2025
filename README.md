@@ -1,22 +1,27 @@
 # Viettel Digital Talent 2025 - Capstone Project
 
 ## Table of Contents
-- [0. Requirements](#0-requirements)
+
 - [1. Kubernetes Deployment](#1-kubernetes-deployment)
-- [2. Web Application & DevOps Practices](#2-web-application--devops-practices)
-- [3. Containerization](#3-containerization)
-- [4. Continuous Integration & Delivery](#4-continuous-integration--delivery)
-- [5. Automation](#5-automation)
-- [6. Monitoring](#6-monitoring)
-- [7. Logging](#7-logging)
-- [8. Security](#8-security)
+- [2. ArgoCD & Jenkins Setup](#2-argocd--jenkins-setup)
+- [3. Application Deployment via ArgoCD](#3-application-deployment-via-argocd)
+- [4. CI/CD](#4-cicd)
+- [5. Monitoring](#5-monitoring)
+- [6. Logging](#6-logging)
+- [7. Security](#7-security)
 
 ## 1. Kubernetes Deployment
 
-**Tool Used:** kubeadm
+**Tool:** kubeadm
 
-**Installation Steps & Configuration:**  
+**Installation Steps & Configuration**  
   Please refer to the detailed [kubeadm/README.md](kubeadm/README.md) for comprehensive setup instructions.
+
+**Server Address:**
+- Master: __192.168.111.111__  
+- Worker 1: __192.168.111.112__  
+- Worker 2: __192.168.111.113__
+- Monitor: __192.168.111.114__
 
 **Overview:**  
   This repository demonstrates the deployment of a complete web application ecosystem within a Kubernetes cluster. It integrates various DevOps tools, including Kubernetes itself, Jenkins for CI/CD, ArgoCD for GitOps-based delivery, and Prometheus for monitoring. The aim is to provide an end-to-end platform for scalable and robust cloud-native applications.
@@ -53,7 +58,7 @@
   
   kubectl get all -n argocd
   ```
-  ![ArgoCD Namespace](image_argo_ns.png)
+  ![ArgoCD Namespace](asset/image_argo_ns.png)
   ![ArgoCD UI](asset/1.2.argo-startup.png)
 
 ### Jenkins
@@ -72,7 +77,7 @@
   ```shell
   kubectl get all -n jenkins
   ```
-  ![Jenkins Namespace](image_jenkins_ns.png)
+  ![Jenkins Namespace](asset/image_jenkins_ns.png)
   ![Jenkins Startup](asset/1.3.jenkins-startup.png)
 
 
@@ -91,7 +96,7 @@
     kubectl get svc -n vdt
   ```
 
-  ![ArgoCD Overview](image_web_service.png)
+  ![ArgoCD Overview](asset/image_web_service.png)
 
   - Frontend Service: 192.168.113.111:32647
    
@@ -153,49 +158,90 @@
 ## 5. Monitoring
 
 ### Prometheus
-
-  * **Prometheus Address:**  
-    _Insert your Prometheus UI address here:_  
-    `Prometheus UI Address: _____________________________`
-
+  
   * Deploy Prometheus using Ansible:
-    ```shell
-    ansible-playbook -i inventory.ini deploy-prometheus.yml
-    ```
 
-  ![Prometheus UI](asset/3.1.setup.png)  
-  - [Prometheus Setup Details](prometheus)
+  ```shell
+  ansible-playbook -i inventory.ini deploy-prometheus.yml
+  ```
 
-  - **UI & Target List:**  
-    ![Prometheus Targets](images/prometheus_targets.png)
+  ![Prometheus UI](asset/3.1.setup.png)
 
-  * **Additional Kubernetes Monitoring Commands:**
-    ```shell
-    # Get all services in monitoring namespace
-    kubectl get svc -n monitoring
-    # Port-forward Prometheus
-    kubectl port-forward svc/prometheus-server -n monitoring 9090:9090
-    ```
+  * SSH into monitoring server and check status to ensure that container is up:
 
----
+  ```shell
+    docker ps
+  ```
+  ![Prometheus UI](asset/prometheus_monitoring.png)
 
-## 6. Security
+  * API service monitoring:
+
+  ![Prometheus UI](asset/3.2.show-metrics.png)
+  ![Prometheus UI](asset/3.3.metric-1.png)
+  ![Prometheus UI](asset/3.4.metric-2.png)
+
+## 6. Logging 
+  - To be continued
+
+## 7. Security
+
+### HAProxy
+  - To be continued
+
+### Authentication & Authorization
+
+- **Solution Reference:**[Log file](log/pipeline_log.txt)
+- **Security App Config:**
+
+![Admin Access](asset/4.0-security-config.png)
+
+- **User role is allowed to get**
+
+![Admin Access](asset/4.0-user-get.png)
+
+- **User role is forbidden to perform post**
+
+![Admin Access](asset/4.0-user-post.png)
+
+- **User role is forbidden to perform delete**
+
+![Admin Access](asset/4.0-user-delete.png)
+
+
+- **Admin role is allowed to get**
+
+![Admin Access](asset/4.0-user-get.png)
+
+- **User role is allowed to perform post**
+
+![Admin Access](asset/4.0-user-post.png)
+
+- **User role is allowed to perform post**
+
+![Admin Access](asset/4.0-user-delete.png)
+
 
 ### Rate Limiting
 
 - **Rate Limiting Configuration:** See [rateLimitation.md](docs/rateLimitation.md)
-- **API Gateway or Rate Limiter Address:**  
-  _Insert rate limiter endpoint here:_  
-  `Rate Limiter Address: _____________________________`
-- **Test Result:**  
-    ![Rate Limit](images/rate_limit.png)
 
-### Authentication & Authorization
+**Overview:**  
+  The API endpoint /api/v1/students allows clients to retrieve student records. To prevent abuse and overuse, a token bucket algorithm is used to limit the number of requests.
 
-- **API Protected Endpoints:** See [API repo](https://github.com/[your_api_repo])
-- **Section for API Endpoint Address:**  
-  _Insert your API base URL here:_  
-  `API Base URL: _____________________________`
-- **Role-based Access Screenshots:**  
-    ![Admin Access](images/admin_access.png)
-    ![User Access](images/user_access.png)
+![Admin Access](asset/7.0.png)
+
+- __Capacity__: 10 tokens
+
+- __Refill Rate__: 10 tokens per minute
+
+- This means each client can send up to 10 requests per minute.
+
+![Admin Access](asset/7.1.png)
+
+![Admin Access](asset/7.2.png)
+
+![Admin Access](asset/7.3.png)
+
+- Once all tokens are used, further requests are blocked until the bucket refills after 1 minute.
+
+*Note*: There may be slight overlaps in token consumption due to concurrency (multiple threads accessing the bucket simultaneously), so the effective limit might occasionally exceed 10 requests per minute.
