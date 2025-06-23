@@ -35,7 +35,7 @@ public class RateLimitConfig {
 }
 ```
 
-### 2. Interceptor
+### 2. Controller
 ```java
 @GetMapping
 public ResponseEntity<APIResponse> getStudents() {
