@@ -1,13 +1,25 @@
-- name: Deploy EFK stack
-  hosts: efk
+- name: Deploy EFK stack to Kubernetes
+  hosts: master_server
   become: true
-  roles:
-    - elasticsearch
-    - kibana
-    - fluentd
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
 
-- name: Deploy Web and API services with logging
-  hosts: services
-  become: true
-  roles:
-    - services
+  tasks:
+    - name: Ensure 'logging' namespace exists
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: Namespace
+        name: logging
+        state: present
+
+    - name: Deploy Elasticsearch
+      include_role:
+        name: elasticsearch
+
+    - name: Deploy Kibana
+      include_role:
+        name: kibana
+
+    - name: Deploy Fluentd
+      include_role:
+        name: fluentd

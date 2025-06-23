@@ -1,0 +1,43 @@
+# roles/elasticsearch/tasks/main.yml
+- name: Apply Elasticsearch manifest
+  kubernetes.core.k8s:
+    state: present
+    definition: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: elasticsearch
+        namespace: logging
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: elasticsearch
+        template:
+          metadata:
+            labels:
+              app: elasticsearch
+          spec:
+            containers:
+              - name: elasticsearch
+                image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3
+                ports:
+                  - containerPort: 9200
+                env:
+                  - name: discovery.type
+                    value: single-node
+- name: Expose Elasticsearch
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: elasticsearch
+        namespace: logging
+      spec:
+        selector:
+          app: elasticsearch
+        ports:
+          - port: 9200
+            targetPort: 9200
