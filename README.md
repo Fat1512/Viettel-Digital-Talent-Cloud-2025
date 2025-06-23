@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+- [0. Diagram](#1-kubernetes-deployment)
 - [1. Kubernetes Deployment](#1-kubernetes-deployment)
 - [2. ArgoCD & Jenkins Setup](#2-argocd--jenkins-setup)
 - [3. Application Deployment via ArgoCD](#3-application-deployment-via-argocd)
@@ -9,6 +10,10 @@
 - [5. Monitoring](#5-monitoring)
 - [6. Logging](#6-logging)
 - [7. Security](#7-security)
+
+## 0. Diagram
+
+![Diagram](https://raw.githubusercontent.com/Fat1512/Viettel-Digital-Talent-Cloud-2025/main/asset/architecture.png)
 
 ## 1. Kubernetes Deployment
 
